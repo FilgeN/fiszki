@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block view_content %}
+    <div class="workspace col-lg-12">
+        <div class="text-center">
+            <h1>Słownik</h1>
+        </div>
+    </div>
+
+    <style>
+        .table-hover > tbody tr:hover > td,
+        .table-hover > tbody tr:hover > th {
+            background-color: salmon;
+        }
+    </style>
+{#    <div class="row">#}
+        <div class="col-lg-6 col-lg-offset-3">
+            <table id="id_list_table" class="table table-hover table-striped table-condensed">
+
+                {% for word in words %}
+                    <tr>
+                        <td>{{ forloop.counter }}: {{ word }}</td>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+{#    </div>#}
+
+{% endblock %}

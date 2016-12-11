@@ -1,0 +1,50 @@
+#id_new_item {
+    /*Sluzy do wysrodkowania inputu w formie*/
+    /*display: block;*/
+    margin-top: 2ex;
+}
+
+.table{
+    margin: 0;
+}
+
+.menu{
+    margin: 0;
+    padding: 0 !important;
+}
+
+.dashboard_bar{
+    background: #000000;
+    color: #ffffff;
+}
+
+.path_bar{
+    background: #8c8c8c;
+    color: #4dd2ff;
+}
+
+img{
+    vertical-align: 0;
+}
+
+th{
+    font-size: small;
+}
+
+span{
+    color: #4dd2ff;
+}
+
+p{
+    margin: 0;
+    margin-left: 1%;
+}
+
+a{
+    color: #ffffff;
+}
+
+a:hover{
+    color: #4dd2ff;
+    text-decoration: none;
+}
