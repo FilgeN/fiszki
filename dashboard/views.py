@@ -1,18 +1,24 @@
 from django.shortcuts import render, redirect
-from dashboard.models import *
-from django.views.generic import View, ListView, CreateView
+from dashboard.models import Word
+from dashboard.models import Dictionary as DictionaryModel
+from django.views.generic import View, ListView, CreateView, DeleteView, UpdateView
+from django.views.generic.detail import DetailView
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse_lazy
 # import datetime
 
-class Dashboard(View):
-    def get(self,request):
-        return render(request, 'home.html')
+class Dashboard(ListView):
+    template_name = 'dashboard/home.html'
+    context_object_name = 'all_dicts'
+
+    def get_queryset(self):
+        return DictionaryModel.objects.all()
 
 
 class Add_word(View):
     def get(self, request):
-        return render(request, 'add_words.html')
-+
+        return render(request, 'dashboard/add_words.html')
+
     def post(self, request):
         en = request.POST.get('en_word', "")
         pl = request.POST.get('pl_word', "")
@@ -21,12 +27,12 @@ class Add_word(View):
             word = Word.objects.get(english=en)
 
             msg = "Słówko: '" + str(en) + "' jest już w bazie."
-            return render(request, 'add_words.html', {'err_message': msg})
+            return render(request, 'dashboard/add_words.html', {'err_message': msg})
 
         except ObjectDoesNotExist:
             Word.objects.create(english=en, polish=pl)
             msg = "Słówko: '" + str(en) + "' zostało dodane."
-            return render(request, 'add_words.html', {'suc_message': msg})
+            return render(request, 'dashboard/add_words.html', {'suc_message': msg})
 
         # now = datetime.datetime.now()
         # html = "<html><body>It is now %s.</body></html>" % now
@@ -37,14 +43,27 @@ class AddWord(CreateView):
     fields = ['english', 'polish']
 
 
-class Dictionary(CreateView):
-    template_name = 'dictionary.html'
-    model = 'Dictionary'
-    fields = 'Title'
+class DictionaryCreate(CreateView):
+    model = DictionaryModel
+    fields = ['title','logo']
 
-class DictionaryList(ListView):
-    template_name = 'dictionary.html'
-    context_object_name = 'words'
+class DictionaryDetail(DetailView):
+    template_name = 'dashboard/dictionary.html'
+    model = DictionaryModel
 
-    def get_queryset(self):
-        return Word.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(DictionaryDetail, self).get_context_data(**kwargs)
+        context['words'] = Word.objects.all()
+        zawartosc = ""
+        for c in context:
+            zawartosc = zawartosc + str(c)
+        context['title'] = zawartosc
+        return context
+
+class DictionaryDelete(DeleteView):
+    model = DictionaryModel
+    success_url = reverse_lazy('dashboard:dashboard')
+
+class DictionaryUpdate(UpdateView):
+    model = DictionaryModel
+    fields = ['title']

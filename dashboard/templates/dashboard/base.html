@@ -27,15 +27,15 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="{% url 'dashboard' %}">
+                    <a href="{% url 'dashboard:dashboard' %}">
                         Menu
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'add_word' %}">Dodaj słówka</a>
+                    <a href="{% url 'dashboard:add_word' %}">Dodaj słówka</a>
                 </li>
                 <li>
-                    <a href="{% url 'dictionary' %}">Słownik</a>
+                    <a href="{% url 'dashboard:dict_add' %}">Dodaj słownik</a>
                 </li>
             </ul>
         </div>
@@ -45,7 +45,7 @@
         <div id="page-content-wrapper container-fluid">
                 <div class="row">
                     <div class="path_bar col-lg-12">
-                        <a href="{% url 'dashboard' %}"> <img src="/static/home.png" alt="home_icon" height="12" width="12"> / </a>
+                        <a href="{% url 'dashboard:dashboard' %}"> <img src="/static/home.png" alt="home_icon" height="12" width="12"> / </a>
                     </div>
 
                     {% block view_content %}
