@@ -8,6 +8,9 @@ urlpatterns = [
     # /dashboard/
     url(r'^$', Dashboard.as_view(), name='dashboard'),
 
+    # /dashboard/register
+    url(r'^register/$', UserFormView.as_view(), name='register'),
+
     # /dashboard/add_word/
     url(r'^add_word/$', Add_word.as_view(), name='add_word'),
 
